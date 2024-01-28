@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расчет размера логотипа для бренд-стены</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0a79d6;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            justify-content: center;
+            padding: 0 40px;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 26px;
+            padding: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            text-align: left;
+            margin-top: px;
+            color: #fff;
+            padding: 8px;
+    
+        }
+
+        input {
+            width: 150px;
+            padding: 16px;
+            box-sizing: border-box;
+            border: 0px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        button {
+            background-color: transparent;
+            color: #fff;
+            padding: 16px 30px;
+            font-size: 16px;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: color 0.3s, border-color 0.3s, transform 0.2s ease-out;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            color: #ffeb3b;
+            border-color: #ffeb3b;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        p {
+            margin-top: 20px; 
+            font-size: 18px;
+        }
+
+        #rectangleHeight {
+            margin-top: -10px; 
+        }
+    </style>
+</head>
+<body>
+
+<h2>Расчет размера логотипа для бренд-стены</h2>
+
+<label for="width">Ширина стены (м):</label>
+<input type="number" id="width" step="0.01" placeholder="Введите ширину">
+
+<label for="height">Высота стены (м):</label>
+<input type="number" id="height" step="0.01" placeholder="Введите высоту">
+
+<button onclick="calculateRectangleSize()">Рассчитать</button>
+
+<p id="rectangleWidth"></p>
+<p id="rectangleHeight"></p>
+
+<script>
+    function calculateRectangleSize() {
+        var wallWidth = parseFloat(document.getElementById("width").value);
+        var wallHeight = parseFloat(document.getElementById("height").value);
+        var fixedPercentage = 9;
+
+        if (!isNaN(wallWidth) && !isNaN(wallHeight)) {
+            var totalArea = wallWidth * wallHeight;
+            var rectangleArea = totalArea * (fixedPercentage / 100);
+
+            var rectangleLength = 1.26;
+            var rectangleWidth = 0.86;
+
+            var scaleFactor = Math.sqrt(rectangleArea / (rectangleLength * rectangleWidth));
+            var newRectangleWidth = (rectangleLength * scaleFactor).toFixed(2);
+            var newRectangleHeight = (rectangleWidth * scaleFactor).toFixed(2);
+
+            document.getElementById("rectangleWidth").innerHTML =
+                "Ширина: " + newRectangleWidth + " м";
+            document.getElementById("rectangleHeight").innerHTML =
+                "Высота: " + newRectangleHeight + " м";
+        } else {
+            document.getElementById("rectangleWidth").innerHTML = "Пожалуйста, введите корректные значения.";
+            document.getElementById("rectangleHeight").innerHTML = "";
+        }
+    }
+</script>
+
+</body>
+</html>
